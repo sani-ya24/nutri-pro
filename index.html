@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutripro - Your Health Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Your CSS styles can go here */
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <div class="logo">🥗 NutriPro</div>
+        <div class="tagline">Your Personal Health & Nutrition Companion</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-container">
+        <nav class="nav-bar">
+            <div class="nav-item active" data-page="login">
+                <div class="nav-icon">🔐</div>
+                <div class="nav-text">Login</div>
+            </div>
+            <div class="nav-item" data-page="register">
+                <div class="nav-icon">📝</div>
+                <div class="nav-text">Register</div>
+            </div>
+            <div class="nav-item" data-page="chatbot">
+                <div class="nav-icon">💬</div>
+                <div class="nav-text">Chat</div>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-text">Profile</div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Login Page -->
+        <div id="loginPage" class="page active">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="login-header">
+                        <h1 class="login-title">Welcome Back!</h1>
+                        <p class="login-subtitle">Sign in to continue your health journey</p>
+                    </div>
+                    
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label class="form-label" for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" required>
+                        </div>
+                        
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Remember Me</label>
+                        </div>
+                        
+                        <button type="submit" class="btn" id="loginBtn">
+                            <span id="loginText">Login</span>
+                            <span id="loginSpinner" style="display: none;">
+                                <div class="loading-spinner" style="width: 20px; height: 20px; margin: 0 auto;"></div>
+                            </span>
+                        </button>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="navigateToPage('register')">Sign Up</button>
+                        
+                        <button type="button" class="btn btn-secondary" style="margin-top: 0.5rem;">Forgot Password?</button>
+                    </form>
+                    
+                    <div class="social-login">
+                        <button class="social-btn" title="Login with Google">
+                            🌐 Google
+                        </button>
+                        <button class="social-btn" title="Login with Facebook">
+                            📘 Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="registerPage" class="page">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="login-header">
+                        <h1 class="login-title">Join NutriPro!</h1>
+                        <p class="login-subtitle">Create your account to start your health journey</p>
+                    </div>
+                    
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label class="form-label" for="registerName">Full Name</label>
+                            <input type="text" id="registerName" class="form-input" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" class="form-input" placeholder="Create a password" required minlength="6">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn" id="registerBtn">
+                            <span id="registerText">Create Account</span>
+                            <span id="registerSpinner" style="display: none;">
+                                <div class="loading-spinner" style="width: 20px; height: 20px; margin: 0 auto;"></div>
+                            </span>
+                        </button>
+                        
+                        <button type="button" class="btn btn-secondary" onclick="navigateToPage('login')">Already have an account? Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chatbot Page -->
+        <div id="chatbotPage" class="page">
+            <div class="chatbot-container">
+                <div class="chat-header">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="chat-avatar" id="chatAvatar">🤖</div>
+                        <div class="chat-info">
+                            <h3>NutriBot</h3>
+                            <div class="chat-status" id="chatStatus">Online • Ready to help</div>
+                        </div>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">🌓</button>
+                </div>
+                
+                <div class="quick-replies">
+                    <button class="quick-reply" data-message="Show my diet plan">📋 Diet Plan</button>
+                    <button class="quick-reply" data-message="Check calories for today">🔥 Check Calories</button>
+                    <button class="quick-reply" data-message="Set water reminder">💧 Water Reminder</button>
+                    <button class="quick-reply" data-message="Show healthy recipes">🍎 Recipes</button>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        <div class="message-bubble">
+                            Hello! I'm NutriBot, your personal nutrition assistant. How can I help you achieve your health goals today? 🌟
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." maxlength="500">
+                    <button class="input-btn" id="voiceBtn" title="Voice Input">🎤</button>
+                    <button class="input-btn" id="sendBtn" title="Send Message">✈️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profilePage" class="page">
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar">👤</div>
+                        <div class="profile-info">
+                            <h2 id="userName">User</h2>
+                            <p>Health Enthusiast</p>
+                            <p style="color: var(--text-light); font-size: 0.9rem;">Member since <span id="memberSince">Today</span></p>
+                            <button class="btn btn-secondary" onclick="logout()" style="margin-top: 0.5rem; width: auto;">Logout</button>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="userAge">25</div>
+                            <div class="stat-label">Age</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="userWeight">70</div>
+                            <div class="stat-label">Weight (kg)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="userHeight">170</div>
+                            <div class="stat-label">Height (cm)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="userBMI">24.2</div>
+                            <div class="stat-label">BMI</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="editProfile()" style="width: auto; margin-bottom: 0;">✏️ Edit Profile</button>
+                </div>
+                
+                <div class="card">
+                    <h3>🎯 Diet Goal</h3>
+                    <p style="margin: 1rem 0; color: var(--text-light);" id="dietGoal">Weight Management</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="goalProgress" style="width: 0%;"></div>
+                    </div>
+                    <p style="text-align: center; color: var(--text-light); font-size: 0.9rem;" id="goalProgressText">0% Complete</p>
+                </div>
+            </div>
+            
+            <!-- BMI Calculator -->
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3>📊 BMI Calculator</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
+                    <input type="number" id="bmiWeight" class="form-input" placeholder="Weight (kg)" min="1" max="500">
+                    <input type="number" id="bmiHeight" class="form-input" placeholder="Height (cm)" min="50" max="300">
+                </div>
+                <button class="btn" onclick="calculateBMI()" style="width: auto;">Calculate BMI</button>
+                <div id="bmiResult" style="margin-top: 1rem; padding: 1rem; background: var(--light-green); border-radius: var(--border-radius); display: none;">
+                    <strong>Your BMI: <span id="bmiValue"></span></strong>
+                    <p id="bmiCategory" style="margin-top: 0.5rem; color: var(--text-light);"></p>
+                </div>
+            </div>
+            
+            <!-- Water Intake Tracker -->
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3>💧 Water Intake Today</h3>
+                <p style="text-align: center; margin: 1rem 0;">Goal: 8 glasses</p>
+                <div class="water-tracker">
+                    <div class="water-cup" data-cup="1"></div>
+                    <div class="water-cup" data-cup="2"></div>
+                    <div class="water-cup" data-cup="3"></div>
+                    <div class="water-cup" data-cup="4"></div>
+                    <div class="water-cup" data-cup="5"></div>
+                    <div class="water-cup" data-cup="6"></div>
+                    <div class="water-cup" data-cup="7"></div>
+                    <div class="water-cup" data-cup="8"></div>
+                </div>
+                <p id="waterCount" style="text-align: center; margin-top: 1rem; color: var(--primary-green); font-weight: bold;">0/8 glasses</p>
+            </div>
+            
+            <!-- Daily Meal Planner -->
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3>🍽️ Daily Meal Planner</h3>
+                <div class="meal-planner">
+                    <div class="meal-card" onclick="planMeal('breakfast')">
+                        <div class="meal-icon">🌅</div>
+                        <h4>Breakfast</h4>
+                        <p id="breakfastMeal">Oatmeal with berries</p>
+                        <small>320 calories</small>
+                    </div>
+                    <div class="meal-card" onclick="planMeal('lunch')">
+                        <div class="meal-icon">☀️</div>
+                        <h4>Lunch</h4>
+                        <p id="lunchMeal">Grilled chicken salad</p>
+                        <small>450 calories</small>
+                    </div>
+                    <div class="meal-card" onclick="planMeal('dinner')">
+                        <div class="meal-icon">🌙</div>
+                        <h4>Dinner</h4>
+                        <p id="dinnerMeal">Salmon with vegetables</p>
+                        <small>520 calories</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Achievements -->
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3>🏆 Achievements & Badges</h3>
+                <div class="badges-container">
+                    <div class="badge">🔥 7-Day Streak</div>
+                    <div class="badge">💧 Water Goal Reached</div>
+                    <div class="badge">🥗 Healthy Eater</div>
+                    <div class="badge">📱 App Explorer</div>
+                </div>
+                <p style="margin-top: 1rem; color: var(--text-light); text-align: center;">
+                    Keep up the great work! You're on track to earn the "Nutrition Master" badge.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="fabBtn" title="Quick Chat">💬</button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#" class="footer-link">About</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+        </div>
+        <p>&copy; 2025 NutriPro. All rights reserved. Made with ❤️ for your health.</p>
+    </footer>
+
+    <script>
+        // Global Variables
+        const API_BASE_URL = 'http://localhost:5000';
+        let currentPage = 'login';
+        let waterIntake = 0;
+        let isDarkMode = false;
+        let chatMessages = [];
+        let isLoggedIn = false;
+        let currentUserId = null;
+        let currentUserName = '';
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide splash screen after 3 seconds
+            setTimeout(() => {
+                document.getElementById('splashScreen').classList.add('hidden');
+            }, 3000);
+
+            // Initialize event listeners
+            initializeEventListeners();
+            initializeWaterTracker();
+            
+            // Check if user was previously logged in
+            checkLoginStatus();
+        });
+
+        function initializeEventListeners() {
+            // Navigation
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', () => navigateToPage(item.dataset.page));
+            });
+
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // Register form
+            document.getElementById('registerForm').addEventListener('submit', handleRegister);
+
+            // Chat functionality
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Quick replies
+            const quickReplies = document.querySelectorAll('.quick-reply');
+            quickReplies.forEach(reply => {
+                reply.addEventListener('click', () => {
+                    const message = reply.dataset.message;
+                    document.getElementById('chatInput').value = message;
+                    sendMessage();
+                });
+            });
+
+            // Voice input (mock functionality)
+            document.getElementById('voiceBtn').addEventListener('click', handleVoiceInput);
+
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
+            // FAB button
+            document.getElementById('fabBtn').addEventListener('click', () => navigateToPage('chatbot'));
+        }
+
+        function checkLoginStatus() {
+            // Check localStorage for saved login
+            const savedUserId = localStorage.getItem('nutripro_user_id');
+            const savedUserName = localStorage.getItem('nutripro_user_name');
+            
+            if (savedUserId && savedUserName) {
+                currentUserId = savedUserId;
+                currentUserName = savedUserName;
+                isLoggedIn = true;
+                
+                // Load user profile and navigate to profile
+                loadUserProfile().then(() => {
+                    navigateToPage('profile');
+                });
+            }
+        }
+
+        function navigateToPage(pageName) {
+            // Check if user needs to be logged in for certain pages
+            if (['chatbot', 'profile'].includes(pageName) && !isLoggedIn) {
+                alert('Please login first to access this feature.');
+                navigateToPage('login');
+                return;
+            }
+
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${pageName}"]`).classList.add('active');
+
+            // Show/hide pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(`${pageName}Page`).classList.add('active');
+
+            currentPage = pageName;
+
+            // Special handling for chatbot page
+            if (pageName === 'chatbot') {
+                setTimeout(() => {
+                    const messagesContainer = document.getElementById('chatMessages');
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 100);
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const loginBtn = document.getElementById('loginBtn');
+            const loginText = document.getElementById('loginText');
+            const loginSpinner = document.getElementById('loginSpinner');
+            
+            // Show loading animation
+            loginText.style.display = 'none';
+            loginSpinner.style.display = 'block';
+            loginBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store user data
+                    currentUserId = data.user_id;
+                    currentUserName = data.name;
+                    isLoggedIn = true;
+                    
+                    // Save to localStorage for persistence
+                    localStorage.setItem('nutripro_user_id', data.user_id);
+                    localStorage.setItem('nutripro_user_name', data.name);
+                    
+                    // Load user profile data
+                    await loadUserProfile();
+                    
+                    // Navigate to profile page
+                    navigateToPage('profile');
+                    
+                    // Show success message in chat
+                    addBotMessage(`Welcome back, ${data.name}! I'm here to help you with your nutrition goals. 🎉`);
+                } else {
+                    alert(data.message || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Unable to connect to server. Please make sure the backend is running on http://localhost:5000');
+            } finally {
+                // Reset button
+                loginText.style.display = 'block';
+                loginSpinner.style.display = 'none';
+                loginBtn.disabled = false;
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            const registerBtn = document.getElementById('registerBtn');
+            const registerText = document.getElementById('registerText');
+            const registerSpinner = document.getElementById('registerSpinner');
+            
+            // Show loading animation
+            registerText.style.display = 'none';
+            registerSpinner.style.display = 'block';
+            registerBtn.disabled = true;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Registration successful! Please login with your credentials.');
+                    // Clear form
+                    document.getElementById('registerForm').reset();
+                    // Navigate to login page
+                    navigateToPage('login');
+                } else {
+                    alert(data.message || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Unable to connect to server. Please make sure the backend is running on http://localhost:5000');
+            } finally {
+                // Reset button
+                registerText.style.display = 'block';
+                registerSpinner.style.display = 'none';
+                registerBtn.disabled = false;
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to UI
+            addUserMessage(message);
+            input.value = '';
+            
+            // Show typing indicator
+            const avatar = document.getElementById('chatAvatar');
+            const chatStatus = document.getElementById('chatStatus');
+            avatar.style.animation = 'pulse 0.5s infinite';
+            chatStatus.textContent = 'Typing...';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        message: message,
+                        user_id: currentUserId || 'anonymous'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Add bot response from Gemini AI
+                    addBotMessage(data.response);
+                } else {
+                    addBotMessage("Sorry, I'm having trouble processing your message. Please try again.");
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                addBotMessage("I'm having connection issues. Please check that the backend server is running on http://localhost:5000");
+            } finally {
+                // Reset status
+                avatar.style.animation = 'pulse 2s infinite';
+                chatStatus.textContent = 'Online • Ready to help';
+            }
+        }
+
+        async function loadUserProfile() {
+            if (!currentUserId) return;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/profile/${currentUserId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const profile = data.profile;
+                    
+                    // Update UI with profile data
+                    document.getElementById('userName').textContent = profile.name;
+                    document.getElementById('userAge').textContent = profile.age;
+                    document.getElementById('userWeight').textContent = profile.weight;
+                    document.getElementById('userHeight').textContent = profile.height;
+                    document.getElementById('dietGoal').textContent = profile.diet_goal || 'Weight Management';
+                    
+                    // Calculate and display BMI
+                    const heightInMeters = profile.height / 100;
+                    const bmi = profile.weight / (heightInMeters * heightInMeters);
+                    document.getElementById('userBMI').textContent = Math.round(bmi * 10) / 10;
+                    
+                    // Update water intake
+                    waterIntake = profile.water_intake || 0;
+                    updateWaterUI();
+                    
+                    // Update goal progress
+                    const progress = profile.goal_progress || 0;
+                    document.getElementById('goalProgress').style.width = progress + '%';
+                    document.getElementById('goalProgressText').textContent = progress + '% Complete';
+                }
+            } catch (error) {
+                console.error('Profile load error:', error);
+            }
+        }
+
+        async function updateWaterIntake(newIntake) {
+            if (!currentUserId) return;
+            
+            try {
+                await fetch(`${API_BASE_URL}/api/profile/${currentUserId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ water_intake: newIntake })
+                });
+            } catch (error) {
+                console.error('Water intake update error:', error);
+            }
+        }
+
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            chatMessages.push({type: 'user', message: message, timestamp: new Date()});
+        }
+
+        function addBotMessage(message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.innerHTML = `<div class="message-bubble">${message}</div>`;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            chatMessages.push({type: 'bot', message: message, timestamp: new Date()});
+        }
+
+        function handleVoiceInput() {
+            // Mock voice input functionality
+            const voiceBtn = document.getElementById('voiceBtn');
+            voiceBtn.innerHTML = '🎤';
+            voiceBtn.style.background = '#f44336';
+            
+            setTimeout(() => {
+                voiceBtn.innerHTML = '🎤';
+                voiceBtn.style.background = 'var(--primary-green)';
+                document.getElementById('chatInput').value = "Show me healthy breakfast options";
+                addBotMessage("🎤 Voice input received! I heard you asking about healthy breakfast options. Here are some great choices...");
+            }, 2000);
+        }
+
+        function toggleTheme() {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (isDarkMode) {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '☀️';
+            } else {
+                body.removeAttribute('data-theme');
+                themeToggle.innerHTML = '🌓';
+            }
+        }
+
+        function initializeWaterTracker() {
+            const waterCups = document.querySelectorAll('.water-cup');
+            waterCups.forEach(cup => {
+                cup.addEventListener('click', () => toggleWaterCup(cup));
+            });
+        }
+
+        function toggleWaterCup(cup) {
+            const cupNumber = parseInt(cup.dataset.cup);
+            
+            if (cup.classList.contains('filled')) {
+                // Remove this cup and all after it
+                for (let i = cupNumber; i <= 8; i++) {
+                    document.querySelector(`[data-cup="${i}"]`).classList.remove('filled');
+                }
+                waterIntake = cupNumber - 1;
+            } else {
+                // Fill this cup and all before it
+                for (let i = 1; i <= cupNumber; i++) {
+                    document.querySelector(`[data-cup="${i}"]`).classList.add('filled');
+                }
+                waterIntake = cupNumber;
+            }
+            
+            updateWaterCount();
+            updateWaterIntake(waterIntake); // Save to backend
+            
+            // Celebrate when reaching 8 glasses
+            if (waterIntake === 8) {
+                setTimeout(() => {
+                    addBotMessage("🎉 Congratulations! You've reached your daily water goal! Keep up the excellent work!");
+                }, 500);
+            }
+        }
+
+        function updateWaterUI() {
+            // Update water cup visuals
+            for (let i = 1; i <= 8; i++) {
+                const cup = document.querySelector(`[data-cup="${i}"]`);
+                if (i <= waterIntake) {
+                    cup.classList.add('filled');
+                } else {
+                    cup.classList.remove('filled');
+                }
+            }
+            updateWaterCount();
+        }
+
+        function updateWaterCount() {
+            const waterCount = document.getElementById('waterCount');
+            waterCount.textContent = `${waterIntake}/8 glasses`;
+            
+            if (waterIntake >= 8) {
+                waterCount.style.color = 'var(--primary-green)';
+                waterCount.innerHTML = `${waterIntake}/8 glasses ✅`;
+            } else {
+                waterCount.style.color = 'var(--primary-green)';
+                waterCount.innerHTML = `${waterIntake}/8 glasses`;
+            }
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('bmiWeight').value);
+            const height = parseFloat(document.getElementById('bmiHeight').value);
+            
+            if (!weight || !height || weight <= 0 || height <= 0) {
+                alert('Please enter valid weight and height values.');
+                return;
+            }
+            
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const bmiRounded = Math.round(bmi * 10) / 10;
+            
+            document.getElementById('bmiValue').textContent = bmiRounded;
+            
+            let category = '';
+            let categoryColor = '';
+            
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                categoryColor = '#2196F3';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = 'Normal Weight';
+                categoryColor = 'var(--primary-green)';
+            } else if (bmi >= 25 && bmi < 30) {
+                category = 'Overweight';
+                categoryColor = 'var(--accent-orange)';
+            } else {
+                category = 'Obese';
+                categoryColor = '#f44336';
+            }
+            
+            const categoryElement = document.getElementById('bmiCategory');
+            categoryElement.textContent = `Category: ${category}`;
+            categoryElement.style.color = categoryColor;
+            
+            document.getElementById('bmiResult').style.display = 'block';
+            
+            // Update profile BMI
+            document.getElementById('userBMI').textContent = bmiRounded;
+        }
+
+        async function editProfile() {
+            if (!currentUserId) {
+                alert('Please login first.');
+                return;
+            }
+            
+            const newName = prompt('Enter your name:', document.getElementById('userName').textContent);
+            const newAge = prompt('Enter your age:', document.getElementById('userAge').textContent);
+            const newWeight = prompt('Enter your weight (kg):', document.getElementById('userWeight').textContent);
+            const newHeight = prompt('Enter your height (cm):', document.getElementById('userHeight').textContent);
+            const newDietGoal = prompt('Enter your diet goal:', document.getElementById('dietGoal').textContent);
+            
+            const updates = {};
+            
+            if (newName && newName.trim()) updates.name = newName.trim();
+            if (newAge && !isNaN(newAge) && newAge > 0) updates.age = parseInt(newAge);
+            if (newWeight && !isNaN(newWeight) && newWeight > 0) updates.weight = parseFloat(newWeight);
+            if (newHeight && !isNaN(newHeight) && newHeight > 0) updates.height = parseFloat(newHeight);
+            if (newDietGoal && newDietGoal.trim()) updates.diet_goal = newDietGoal.trim();
+            
+            if (Object.keys(updates).length === 0) {
+                return; // No updates to make
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/profile/${currentUserId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updates)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Update UI with new data
+                    await loadUserProfile();
+                    addBotMessage("Your profile has been updated successfully! Keep tracking your progress.");
+                } else {
+                    alert('Failed to update profile: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Profile update error:', error);
+                alert('Failed to update profile. Please try again.');
+            }
+        }
+
+        function planMeal(mealType) {
+            const mealSuggestions = {
+                breakfast: [
+                    'Avocado toast with poached egg',
+                    'Greek yogurt with granola',
+                    'Oatmeal with berries',
+                    'Smoothie bowl with banana',
+                    'Scrambled eggs with spinach'
+                ],
+                lunch: [
+                    'Quinoa salad with vegetables',
+                    'Grilled chicken wrap',
+                    'Buddha bowl with tofu',
+                    'Lentil soup with bread',
+                    'Mediterranean pasta salad'
+                ],
+                dinner: [
+                    'Grilled salmon with asparagus',
+                    'Chicken stir-fry with brown rice',
+                    'Vegetable curry with quinoa',
+                    'Baked cod with sweet potato',
+                    'Turkey meatballs with zucchini noodles'
+                ]
+            };
+            
+            const suggestions = mealSuggestions[mealType];
+            const randomMeal = suggestions[Math.floor(Math.random() * suggestions.length)];
+            
+            document.getElementById(`${mealType}Meal`).textContent = randomMeal;
+            
+            addBotMessage(`I've updated your ${mealType} plan to: ${randomMeal}. This is a nutritious choice that aligns with your health goals!`);
+        }
+
+        function logout() {
+            // Clear user data
+            currentUserId = null;
+            currentUserName = '';
+            isLoggedIn = false;
+            
+            // Clear localStorage
+            localStorage.removeItem('nutripro_user_id');
+            localStorage.removeItem('nutripro_user_name');
+            
+            // Reset UI
+            document.getElementById('loginForm').reset();
+            document.getElementById('registerForm').reset();
+            
+            // Clear chat messages
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = `
+                <div class="message bot">
+                    <div class="message-bubble">
+                        Hello! I'm NutriBot, your personal nutrition assistant. How can I help you achieve your health goals today?
+                    </div>
+                </div>
+            `;
+            chatMessages = [];
+            
+            // Navigate to login page
+            navigateToPage('login');
+            
+            alert('You have been logged out successfully.');
+        }
+
+        // Add some initial bot messages for demo
+        setTimeout(() => {
+            if (!isLoggedIn) {
+                addBotMessage("Hi there! I'm NutriBot. Once you log in, I'll be ready to help you with personalized nutrition advice!");
+            }
+        }, 4000);
+    </script>
+</body>
+</html>
